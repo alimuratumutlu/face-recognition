@@ -3,15 +3,6 @@ import * as faceapi from "face-api.js";
 import "./App.css";
 
 function App() {
-  const fetchModels = async () => {
-    Promise.all([
-      faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
-      faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
-      faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
-      faceapi.nets.faceExpressionNet.loadFromUri("/models"),
-    ]).then(startCamera());
-  };
-
   const startCamera = () => {
     const video = document.getElementById("video");
 
@@ -25,6 +16,15 @@ function App() {
   };
 
   useEffect(() => {
+    const fetchModels = async () => {
+      Promise.all([
+        faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
+        faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
+        faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
+        faceapi.nets.faceExpressionNet.loadFromUri("/models"),
+      ]).then(startCamera());
+    };
+
     fetchModels();
     const video = document.getElementById("video");
 
@@ -59,6 +59,7 @@ function App() {
       }, 200);
     });
   }, []);
+  
   return (
     <div className="App">
       <header className="App-header">
